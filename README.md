@@ -5,7 +5,7 @@ This is a project I started with my daughter to learn to code games using AI tog
 ## Log
 
 - 2025-Jun-14 started a basic app using Flutter Create App in VS Code and modified title of App
-- 
+- 2025-Jun-14 added balloon sprites that float when the counter hits a divisor of 10
 
 ## Getting Started
 
