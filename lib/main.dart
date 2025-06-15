@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'balloon_animation.dart';
+import 'version.dart';
 
 void main() {
   runApp(const MyApp());
@@ -121,6 +122,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           if (_showBalloons) const BalloonAnimation(),
+          Positioned(
+            left: 16,
+            bottom: 16,
+            child: Text(
+              Version.fullVersion,
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+            ),
+          ),
         ],
       ),
       floatingActionButton: Column(
