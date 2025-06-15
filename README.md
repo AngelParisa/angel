@@ -1,6 +1,11 @@
 # angel
 
-A new Flutter project.
+This is a project I started with my daughter to learn to code games using AI together. 
+
+## Log
+
+- 2025-Jun-14 started a basic app using Flutter Create App in VS Code and modified title of App
+- 
 
 ## Getting Started
 
