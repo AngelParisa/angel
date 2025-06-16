@@ -19,7 +19,7 @@ class _BalloonAnimationState extends State<BalloonAnimation>
     return 'assets/images/balloon-$spriteNumber.png';
   }
 
-  Balloon _createBalloon(int index) {
+  Balloon _createBalloon(int index, double screenWidth) {
     final popTime =
         _random.nextDouble() * 4.5 +
         0.5; // Random pop time between 0.5-5 seconds
@@ -38,12 +38,16 @@ class _BalloonAnimationState extends State<BalloonAnimation>
       duration: const Duration(seconds: 5),
     );
 
+    // Calculate x positions to spread across screen width
+    final startX = _random.nextDouble() * screenWidth;
+    final endX = _random.nextDouble() * screenWidth;
+
     final balloon = Balloon(
       spritePath: _getRandomBalloonSprite(),
       size: 50.0 + _random.nextDouble() * 30.0,
-      startX: _random.nextDouble() * 300.0,
+      startX: startX,
       startY: 600.0,
-      endX: _random.nextDouble() * 300.0,
+      endX: endX,
       endY: -100.0,
       popTime: popTime,
       popController: popController,
@@ -80,7 +84,9 @@ class _BalloonAnimationState extends State<BalloonAnimation>
 
     // Create random number of balloons (5-14)
     for (int i = 0; i < _random.nextInt(10) + 5; i++) {
-      _balloons.add(_createBalloon(i));
+      _balloons.add(
+        _createBalloon(i, 300.0),
+      ); // Default width until we get actual screen width
     }
   }
 
@@ -95,6 +101,16 @@ class _BalloonAnimationState extends State<BalloonAnimation>
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width and update balloon positions if needed
+    final screenWidth = MediaQuery.of(context).size.width;
+    if (_balloons.isNotEmpty && _balloons[0].startX > screenWidth) {
+      // Recreate balloons with new screen width
+      _balloons.clear();
+      for (int i = 0; i < _random.nextInt(10) + 5; i++) {
+        _balloons.add(_createBalloon(i, screenWidth));
+      }
+    }
+
     return Stack(
       children: _balloons.map((balloon) {
         return AnimatedBuilder(
